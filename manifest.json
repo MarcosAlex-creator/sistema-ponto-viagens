@@ -1,0 +1,20 @@
+{
+    "name": "Sistema de Ponto e Viagens",
+    "short_name": "Ponto & Viagens",
+    "description": "Controle de jornada e registros de viagem",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#f8fafc",
+    "theme_color": "#2563eb",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "https://cdn-icons-png.flaticon.com/512/3204/3204123.png",
+            "sizes": "any",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": ["productivity", "utilities"],
+    "lang": "pt-BR"
+}

@@ -1,0 +1,94 @@
+:root {
+    --primaria: #2563eb;
+    --sucesso: #16a34a;
+    --perigo: #dc2626;
+    --secundaria: #64748b;
+    --fundo: #f8fafc;
+    --cartao: #ffffff;
+    --texto: #1e293b;
+    --borda: #e2e8f0;
+    --sombra: 0 2px 8px rgba(0,0,0,0.08);
+    --linha-hover: #f8fafc;
+    --cabecalho-tabela: #f1f5f9;
+}
+
+/* TEMA ESCURO */
+[data-tema="escuro"] {
+    --primaria: #3b82f6;
+    --sucesso: #22c55e;
+    --perigo: #ef4444;
+    --secundaria: #94a3b8;
+    --fundo: #0f172a;
+    --cartao: #1e293b;
+    --texto: #e2e8f0;
+    --borda: #334155;
+    --sombra: 0 2px 10px rgba(0,0,0,0.35);
+    --linha-hover: #273449;
+    --cabecalho-tabela: #1e293b;
+}
+
+/* Ajustes gerais do tema */
+body {
+    background: var(--fundo);
+    color: var(--texto);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.card {
+    background: var(--cartao);
+    box-shadow: var(--sombra);
+    transition: background 0.3s ease;
+}
+
+th {
+    background: var(--cabecalho-tabela);
+}
+
+tr:hover {
+    background: var(--linha-hover);
+}
+
+.tab-btn {
+    background: var(--borda);
+}
+
+textarea, input, select {
+    background: var(--fundo);
+    color: var(--texto);
+    border-color: var(--borda);
+}
+
+/* Botão de tema */
+.tema-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    border-radius: 2rem;
+    background: var(--cartao);
+    color: var(--texto);
+    border: 1px solid var(--borda);
+    box-shadow: var(--sombra);
+}
+
+header {
+    position: relative;
+}
+
+.modal-conteudo {
+    background: var(--cartao);
+    color: var(--texto);
+}
+
+@media (max-width: 640px) {
+    .tema-btn {
+        position: static;
+        margin-top: 1rem;
+        align-self: center;
+    }
+    header {
+        display: flex;
+        flex-direction: column;
+    }
+}
