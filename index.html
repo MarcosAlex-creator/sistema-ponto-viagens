@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#2563eb">
+    <link rel="icon" type="image/png" href="icone-app.png">
+    <link rel="apple-touch-icon" href="icone-app.png">
     <title>Sistema de Ponto e Viagens</title>
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
     <script>
-        // Aplica tema ANTES de renderizar para evitar flash
         (function(){
             const t = localStorage.getItem('tema_preferido') || 
                 (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'escuro' : 'claro');
@@ -29,7 +30,6 @@
             <button class="tab-btn" data-tab="viagens">🚗 Módulo de Viagens</button>
         </div>
 
-        <!-- MÓDULO DE PONTO -->
         <section id="ponto" class="tab-content active">
             <div class="card">
                 <h2>Registrar Ponto</h2>
@@ -64,7 +64,6 @@
             </div>
         </section>
 
-        <!-- MÓDULO DE VIAGENS -->
         <section id="viagens" class="tab-content">
             <div class="card">
                 <h2>Registrar Viagem</h2>
@@ -103,7 +102,6 @@
         </section>
     </div>
 
-    <!-- MODAL DE EDIÇÃO -->
     <div id="modal-editar" class="modal">
         <div class="modal-conteudo">
             <span class="fechar">&times;</span>
