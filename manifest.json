@@ -1,8 +1,9 @@
 {
     "name": "Sistema de Ponto e Viagens",
     "short_name": "Ponto & Viagens",
-    "description": "Controle de jornada e registros de viagem",
-    "start_url": "./index.html",
+    "description": "Controle de jornada e registros de viagem — sem necessidade de internet",
+    "start_url": "index.html",
+    "scope": "./",
     "display": "standalone",
     "background_color": "#f8fafc",
     "theme_color": "#2563eb",
@@ -10,7 +11,7 @@
     "icons": [
         {
             "src": "https://cdn-icons-png.flaticon.com/512/3204/3204123.png",
-            "sizes": "any",
+            "sizes": "512x512",
             "type": "image/png",
             "purpose": "any maskable"
         }
