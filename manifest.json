@@ -10,7 +10,7 @@
     "orientation": "portrait-primary",
     "icons": [
         {
-            "src": "https://cdn-icons-png.flaticon.com/512/3204/3204123.png",
+            "src": "icone-app.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any maskable"
