@@ -1,5 +1,133 @@
-<header>
-    <h1>📋 Sistema de Ponto e Viagens</h1>
-    <p>Controle de jornada e deslocamentos — registros salvos automaticamente</p>
-    <button id="btn-tema" class="btn tema-btn" title="Alternar Tema">🌙 Escuro</button>
-</header>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2563eb">
+    <title>Sistema de Ponto e Viagens</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <script>
+        // Aplica tema ANTES de renderizar para evitar flash
+        (function(){
+            const t = localStorage.getItem('tema_preferido') || 
+                (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'escuro' : 'claro');
+            if (t === 'escuro') document.documentElement.setAttribute('data-tema','escuro');
+        })();
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📋 Sistema de Ponto e Viagens</h1>
+            <p>Controle de jornada e deslocamentos — registros salvos automaticamente</p>
+            <button id="btn-tema" class="btn tema-btn" title="Alternar Tema">🌙 Escuro</button>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="ponto">⏰ Módulo de Ponto</button>
+            <button class="tab-btn" data-tab="viagens">🚗 Módulo de Viagens</button>
+        </div>
+
+        <!-- MÓDULO DE PONTO -->
+        <section id="ponto" class="tab-content active">
+            <div class="card">
+                <h2>Registrar Ponto</h2>
+                <div class="form-group">
+                    <label for="obs-ponto">Observação (opcional)</label>
+                    <textarea id="obs-ponto" rows="2" placeholder="Motivo, ocorrência ou detalhe..."></textarea>
+                </div>
+                <div class="btn-group">
+                    <button id="btn-registrar-ponto" class="btn primary">✅ Registrar Ponto</button>
+                    <button id="btn-alternar-tipo" class="btn secondary">🔄 Tipo: Entrada</button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="header-actions">
+                    <h3>Registros de Ponto</h3>
+                    <span class="contador">Total: <strong id="contador-ponto">0</strong></span>
+                </div>
+                <div class="btn-acoes">
+                    <button id="btn-exportar-ponto" class="btn success">📊 Exportar Excel</button>
+                    <button id="btn-limpar-ponto" class="btn danger">🗑️ Limpar Todos</button>
+                </div>
+                <div class="table-wrapper">
+                    <table id="tabela-ponto">
+                        <thead>
+                            <tr>
+                                <th>Data</th><th>Hora</th><th>Tipo</th><th>Observação</th><th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-ponto"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- MÓDULO DE VIAGENS -->
+        <section id="viagens" class="tab-content">
+            <div class="card">
+                <h2>Registrar Viagem</h2>
+                <p class="subtitulo">Clique na etapa correspondente</p>
+                <div class="botoes-viagem">
+                    <button data-viagem="inicio-saida" class="btn viagem">🚘 Início Saída</button>
+                    <button data-viagem="final-saida" class="btn viagem">🏁 Final Saída</button>
+                    <button data-viagem="inicio-volta" class="btn viagem">↩️ Início Volta</button>
+                    <button data-viagem="final-volta" class="btn viagem">🏠 Final Volta</button>
+                </div>
+                <div class="form-group" style="margin-top: 1rem;">
+                    <label for="obs-viagem">Observação (opcional)</label>
+                    <textarea id="obs-viagem" rows="2" placeholder="Detalhes do trajeto..."></textarea>
+                </div>
+            </div>
+            <div class="card">
+                <div class="header-actions">
+                    <h3>Registros de Viagens</h3>
+                    <span class="contador">Total: <strong id="contador-viagens">0</strong></span>
+                </div>
+                <div class="btn-acoes">
+                    <button id="btn-exportar-viagens" class="btn success">📊 Exportar Excel</button>
+                    <button id="btn-limpar-viagens" class="btn danger">🗑️ Limpar Todos</button>
+                </div>
+                <div class="table-wrapper">
+                    <table id="tabela-viagens">
+                        <thead>
+                            <tr>
+                                <th>Tipo</th><th>Data</th><th>Hora</th><th>Observação</th><th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-viagens"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- MODAL DE EDIÇÃO -->
+    <div id="modal-editar" class="modal">
+        <div class="modal-conteudo">
+            <span class="fechar">&times;</span>
+            <h3 id="modal-titulo">Editar Registro</h3>
+            <input type="hidden" id="modal-tipo-base">
+            <input type="hidden" id="modal-indice">
+            <div class="form-group"><label>Data</label><input type="date" id="modal-data"></div>
+            <div class="form-group"><label>Hora</label><input type="time" id="modal-hora" step="1"></div>
+            <div class="form-group"><label>Tipo</label><select id="modal-tipo"></select></div>
+            <div class="form-group"><label>Observação</label><textarea id="modal-obs" rows="3"></textarea></div>
+            <div class="modal-botoes">
+                <button id="modal-salvar" class="btn primary">💾 Salvar</button>
+                <button id="modal-cancelar" class="btn secondary">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(r => console.log('SW OK:', r.scope))
+                .catch(e => console.log('Erro SW:', e));
+        }
+    </script>
+</body>
+</html>
